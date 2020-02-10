@@ -6,12 +6,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  
+  int period = 2000;
+  int f = 1;
+  
+  unsigned long t = millis() % period;
+  float power = 500 * (sin(6.28*f*t) +1);
 
-  // 2s
-  //soundwave(2000);
-
-  // 4s
-  soundwave(4000);
+  pwm(period/1000,power,1,10);
 }
 
 void pwm(float duration, float power, float period, int pin) {
@@ -30,24 +32,4 @@ void pwm(float duration, float power, float period, int pin) {
     delayMicroseconds((1000-power)*period);
   }
   return;
-}
-
-void soundwave(float T) {
-  // w = 2pi/T
-  // T this case is the pediod (horizontal length) of the sin wave
-  // period: starts at 2.5V, go up to 5V, down to 0V, ends at 2.5V
-  float dur = (T/1000)/2;
-  
-  for (int i=500; i<=1000; i++) {
-    pwm(dur,i,1,10);
-  }
-  for (int i=1000; i>=500; i--) {
-    pwm(dur,i,1,10);
-  }
-  for (int i=500; i>0; i--) {
-    pwm(dur,i,1,10);
-  }
-  for (int i=0; i<=500; i++) {
-    pwm(dur,i,1,10);
-  }
 }
