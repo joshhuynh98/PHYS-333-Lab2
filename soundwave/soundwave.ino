@@ -10,10 +10,7 @@ void loop() {
   int period = 2000;
   int f = 1;
   
-  unsigned long t = millis() % period;
-  float power = 500 * (sin(6.28*f*t) +1);
-
-  pwm(period/1000,power,1,10);
+  soundwave(2000,1);
 }
 
 void pwm(float duration, float power, float period, int pin) {
@@ -32,4 +29,11 @@ void pwm(float duration, float power, float period, int pin) {
     delayMicroseconds((1000-power)*period);
   }
   return;
+}
+
+void soundwave(int period, int freq) {
+  unsigned long t = millis() % period;
+  float power = 500 * (sin(6.28*freq*t) +1);
+  
+  pwm(period/1000,power,1,10);
 }
